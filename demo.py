@@ -34,19 +34,15 @@ class KKBOXTestCase(unittest.TestCase):
         time.sleep(1)
         driver.find_element_by_tag_name("input").send_keys(Keys.ENTER)
         time.sleep(3)
-        #search_result = driver.find_elements_by_css_selector("div.normal")
-
-        #search_result = driver.find_elements_by_xpath("//td[@ng-bind='::song.song_name']")
-        #search_result = driver.find_elements_by_css_selector("div.songs-table>div.normal>td.ng-bind")
-        #time.sleep(1)
-        """for string in search_result:
-            print string.text"""
-
+        # 取得歌曲 table
         song_table = self.driver.find_element_by_tag_name('table')
+        # 取得每一列（橫向）
         rows = song_table.find_elements_by_tag_name('tr')
-        for row in rows[1:-1]:       
+        # 第一列是項目名稱，我們不需要，所以只取第二列到最後一列 [1:] （list 教學 http://www.runoob.com/python/python-lists.html）
+        for row in rows[1:]:
+            # 取得第二欄（直向），歌曲名稱
             col = row.find_elements_by_tag_name('td')[1]
-            #print col.text
+            print col.text
             assert u"因為愛" in col.text
 
 
